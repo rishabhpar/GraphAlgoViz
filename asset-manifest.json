@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/GraphAlgoViz/static/css/main.687a4718.chunk.css",
+    "main.js": "/GraphAlgoViz/static/js/main.1662ac76.chunk.js",
+    "main.js.map": "/GraphAlgoViz/static/js/main.1662ac76.chunk.js.map",
+    "runtime-main.js": "/GraphAlgoViz/static/js/runtime-main.ad02a3ba.js",
+    "runtime-main.js.map": "/GraphAlgoViz/static/js/runtime-main.ad02a3ba.js.map",
+    "static/js/2.ff822ced.chunk.js": "/GraphAlgoViz/static/js/2.ff822ced.chunk.js",
+    "static/js/2.ff822ced.chunk.js.map": "/GraphAlgoViz/static/js/2.ff822ced.chunk.js.map",
+    "index.html": "/GraphAlgoViz/index.html",
+    "precache-manifest.c05e7b7ad87ac71e3ef1e988d93a5602.js": "/GraphAlgoViz/precache-manifest.c05e7b7ad87ac71e3ef1e988d93a5602.js",
+    "service-worker.js": "/GraphAlgoViz/service-worker.js",
+    "static/css/main.687a4718.chunk.css.map": "/GraphAlgoViz/static/css/main.687a4718.chunk.css.map",
+    "static/js/2.ff822ced.chunk.js.LICENSE.txt": "/GraphAlgoViz/static/js/2.ff822ced.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ad02a3ba.js",
+    "static/js/2.ff822ced.chunk.js",
+    "static/css/main.687a4718.chunk.css",
+    "static/js/main.1662ac76.chunk.js"
+  ]
+}
