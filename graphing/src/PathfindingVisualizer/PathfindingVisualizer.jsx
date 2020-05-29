@@ -1,13 +1,15 @@
 import React, {Component} from 'react';
 import Node from './Node/Node';
 import {dijkstra, getNodesInShortestPathOrder} from '../algorithms/dijkstra';
+import {bfs} from '../algorithms/bfs';
+import {dfs} from '../algorithms/dfs';
 
 import './PathfindingVisualizer.css';
 
-const START_NODE_ROW = 10;
-const START_NODE_COL = 15;
-const FINISH_NODE_ROW = 10;
-const FINISH_NODE_COL = 35;
+const START_NODE_ROW = Math.floor((Math.random() * 21));
+const START_NODE_COL = Math.floor((Math.random() * 51));
+const FINISH_NODE_ROW = Math.floor((Math.random() * 21));
+const FINISH_NODE_COL = Math.floor((Math.random() * 51));
 
 export default class PathfindingVisualizer extends Component {
   constructor() {
@@ -54,6 +56,38 @@ export default class PathfindingVisualizer extends Component {
     }
   }
 
+  animateBFS(visitedNodesInOrder, nodesInShortestPathOrder) {
+    for (let i = 0; i <= visitedNodesInOrder.length; i++) {
+      if (i === visitedNodesInOrder.length) {
+        setTimeout(() => {
+          this.animateShortestPath(nodesInShortestPathOrder);
+        }, 10 * i);
+        return;
+      }
+      setTimeout(() => {
+        const node = visitedNodesInOrder[i];
+        document.getElementById(`node-${node.row}-${node.col}`).className =
+          'node node-visited';
+      }, 10 * i);
+    }
+  }
+
+  animateDFS(visitedNodesInOrder, nodesInShortestPathOrder) {
+    for (let i = 0; i <= visitedNodesInOrder.length; i++) {
+      if (i === visitedNodesInOrder.length) {
+        setTimeout(() => {
+          this.animateShortestPath(nodesInShortestPathOrder);
+        }, 10 * i);
+        return;
+      }
+      setTimeout(() => {
+        const node = visitedNodesInOrder[i];
+        document.getElementById(`node-${node.row}-${node.col}`).className =
+          'node node-visited';
+      }, 10 * i);
+    }
+  }
+
   animateShortestPath(nodesInShortestPathOrder) {
     for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
       setTimeout(() => {
@@ -73,6 +107,32 @@ export default class PathfindingVisualizer extends Component {
     this.animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
   }
 
+  visualizeBFS() {
+    const {grid} = this.state;
+    const startNode = grid[START_NODE_ROW][START_NODE_COL];
+    const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
+    const visitedNodesInOrder = bfs(grid, startNode, finishNode);
+    const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
+    this.animateBFS(visitedNodesInOrder, nodesInShortestPathOrder);
+  }
+
+  visualizeDFS() {
+    const {grid} = this.state;
+    const startNode = grid[START_NODE_ROW][START_NODE_COL];
+    const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
+    const visitedNodesInOrder = dfs(grid, startNode, finishNode);
+    const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
+    this.animateDFS(visitedNodesInOrder, nodesInShortestPathOrder);
+  }
+
+  refresh() {
+     window.location.reload(true);
+  }
+
+  goToSort(){
+    window.location.href = "https://rishabhpar.github.io/SortAlgoViz/";
+  }
+
   render() {
     const {grid, mouseIsPressed} = this.state;
 
@@ -81,6 +141,19 @@ export default class PathfindingVisualizer extends Component {
         <button onClick={() => this.visualizeDijkstra()}>
           Visualize Dijkstra's Algorithm
         </button>
+        <button onClick={() => this.visualizeBFS()}>
+          Visualize BFS Algorithm
+        </button>
+        <button onClick={() => this.visualizeDFS()}>
+          Visualize DFS Algorithm
+        </button>
+        <button onClick={() => this.refresh()}>
+          Refresh Map
+        </button>
+        <button onClick={() => this.goToSort()}>
+          Visualize Common Sorting Algorithms
+        </button>
+
         <div className="grid">
           {grid.map((row, rowIdx) => {
             return (
@@ -132,6 +205,8 @@ const createNode = (col, row) => {
     isVisited: false,
     isWall: false,
     previousNode: null,
+    est_distance: Infinity,
+    estimated_cost: null,
   };
 };
 const getNewGridWithWallToggled = (grid, row, col) => {
